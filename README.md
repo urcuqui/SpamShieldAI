@@ -46,6 +46,7 @@ python app/app.py
 3. Enter a message in the text box and click "Classify" to determine if it is spam or not.
 
 ## Project Structure
+```
 SpamShieldAI/
 ├── [README.md](http://_vscodecontentref_/1)
 ├── app/
@@ -58,7 +59,7 @@ SpamShieldAI/
 │   ├── datasets/             # Folder for storing datasets
 │   └── libs/                 # Additional libraries
 └── requirements.txt          # Project dependencies
-
+```
 ## Contributing
 
 Contributions are welcome! If you'd like to improve this project, please open an issue or submit a pull request.
