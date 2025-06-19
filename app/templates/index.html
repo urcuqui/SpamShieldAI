@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SpamShieldAI</title>
+    <style>
+        @keyframes neonGlow {
+            from {
+                text-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 15px #0f0;
+            }
+            to {
+                text-shadow: 0 0 20px #0f0, 0 0 30px #0f0, 0 0 40px #0f0;
+            }
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 30%;
+            background-color: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 2px solid #0f0;
+        }
+        .pet-gif {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        width: 80px;
+        pointer-events: none;
+        }
+        .content {
+            width: 70%;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2rem;
+            animation: neonGlow 1s infinite alternate;
+            margin-bottom: 1rem;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            background-color: #111;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            resize: none;
+        }
+
+        button {
+            background-color: transparent;
+            border: 2px solid #0f0;
+            color: #0f0;
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0f0;
+            color: #000;
+            box-shadow: 0 0 10px #0f0, 0 0 20px #0f0;
+        }
+
+        .result {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            color: #0f0;
+        }
+
+        .signature {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.6rem;
+            white-space: pre;
+            color: #0f0;
+            opacity: 0.8;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <img src="../static/lip.gif" alt="Mascot" width="200">
+    </div>
+    <div class="content">
+        <h1>SpamShieldAI</h1>
+        <textarea id="spamText" placeholder="Type your message here..."></textarea>
+        <button onclick="classify()">Classify</button>
+        <div class="result" id="result"></div>
+        <div class="signature">
+            ___   ___    __   ____  ___    ___    __     __    <br>
+           |   | /  |   |  |  |  |  |  |  /  |   |  |   |  |       [0][1][0]  <br>
+           |   |/  /    |  |  |  |  |  | /  /    |  |   |  |       [0][0][1]   <br>
+           |      /     |  |  |  |  |      |     \\  \\_/  /       [1][1][1]<br>
+           |  |\\  \\   |  '--'  |  |  |\\  \\    \\     /        <br>
+           | _| `.__\\  |________|  | _| `.__\\    |____|         
+        </div>
+    </div>
+    <script>
+        async function classify() {
+            const message = document.getElementById('spamText').value;
+            const response = await fetch('/classify', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ message })
+            });
+            const data = await response.json();
+            document.getElementById('result').textContent = `Result: ${data.result}`;
+        }
+    </script>
+</body>
+</html>
