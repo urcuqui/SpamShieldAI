@@ -64,6 +64,6 @@ SpamShieldAI/
 
 Contributions are welcome! If you'd like to improve this project, please open an issue or submit a pull request.
 
-##Credits
+## Credits
 
 Developed by Christian Urcuqui.
