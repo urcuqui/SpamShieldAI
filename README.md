@@ -14,7 +14,7 @@ SpamShieldAI is a web-based application powered by artificial intelligence to de
 
 Below is a demonstration of SpamShieldAI in action:
 
-![SpamShieldAI Demo](app/static/spamshielddav1.gif)
+![SpamShieldAI Demo](app/static/spamshieldaiv1.gif)
 
 ## Prerequisites
 
