@@ -1,6 +1,12 @@
 from flask import Flask, render_template, request, jsonify
 import random
 import joblib
+import torch
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+
+model_name = "Goodmotion/spam-mail-classifier"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForSequenceClassification.from_pretrained(model_name)
 
 app = Flask(__name__)
 
@@ -17,6 +23,22 @@ def classify_message(text):
     else:
         return "Not Spam"
 
+def classify_message_with_deep(text):
+    inputs = tokenizer(text, padding=True, truncation=True, max_length=128, return_tensors="pt")
+    with torch.no_grad(): 
+        outputs = model(**inputs)
+    logits = outputs.logits
+    probabilities = torch.softmax(logits, dim=1)
+    labels = ["Not Spam", "Spam"]
+    results = [
+        {"text": text, "label": labels[torch.argmax(prob).item()], "confidence": prob.max().item()}
+        for text, prob in zip(text, probabilities)
+    ]
+    if results[0]['label'] == "Spam":
+        return "Spam"
+    else:
+        return "Not Spam"
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -25,10 +47,9 @@ def index():
 def classify():
     data = request.get_json()
     message = data.get("message", "")   
-    result = classify_message(message)
+    #result = classify_message(message)
+    result = classify_message_with_deep(message)
     return jsonify({"result": result})
 
 if __name__ == "__main__":
-   
-    
-    app.run(debug=True)
+    app.run(debug=False)
