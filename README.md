@@ -10,6 +10,12 @@ SpamShieldAI is a web-based application powered by artificial intelligence to de
 - **Trained Model**: Optimized machine learning model using Naive Bayes.
 - **Extensibility**: Ready to integrate with other systems or communication platforms.
 
+## Demo
+
+Below is a demonstration of SpamShieldAI in action:
+
+![SpamShieldAI Demo](app/static/spamshielddav1.gif)
+
 ## Prerequisites
 
 - Python 3.8 or higher
